@@ -1,9 +1,14 @@
 const router = require("express").Router();
 const User = require("../model/User");
 const bycrypt = require("bcryptjs");
+const { validateRegister, validateLogin } = require("../validation/validate");
 
 // register
 router.post("/register", async (req, res, next) => {
+  // validate the payload
+  const { error } = validateRegister(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
   const user = new User({
     name: req.body.name,
     email: req.body.email,
@@ -31,6 +36,10 @@ router.post("/register", async (req, res, next) => {
 
 // login
 router.post("/login", async (req, res, next) => {
+  // validate the payload
+  const { error } = validateLogin(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
+
   const user = new User({
     email: req.body.email,
     password: req.body.password,
