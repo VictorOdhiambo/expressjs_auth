@@ -7,6 +7,8 @@ dotEnv.config();
 
 // imports
 const auth = require("./routes/auth");
+const posts = require("./routes/posts");
+
 const app = express();
 
 // connection to the database
@@ -17,7 +19,9 @@ db.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, () =>
 // import middlewares
 app.use(express.json());
 
+// Route middlewares
 app.use("/api/users", auth);
+app.use("/api/posts", posts);
 
 // start the server
 app.listen(PORT, () =>
