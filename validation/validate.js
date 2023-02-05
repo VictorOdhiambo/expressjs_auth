@@ -19,5 +19,15 @@ const validateLogin = (data) => {
     return schema.validate(data);
 }
 
+const validatePost = (data) => {
+    const schema = Joi.object({
+        title: Joi.string().min(4).max(100).required(),
+        description: Joi.string().min(20).max(500).required()
+    });
+
+    return schema.validate(data);
+}
+
 module.exports.validateRegister = validateRegister;
 module.exports.validateLogin = validateLogin;
+module.exports.validatePost = validatePost;

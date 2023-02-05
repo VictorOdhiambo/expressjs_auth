@@ -1,6 +1,7 @@
 const express = require("express");
 const db = require("mongoose");
 const dotEnv = require('dotenv');
+const cors = require('cors');
 const PORT = process.env.PORT || 3000;
 
 dotEnv.config();
@@ -18,6 +19,7 @@ db.connect(process.env.DB_CONNECTION, { useNewUrlParser: true }, () =>
 
 // import middlewares
 app.use(express.json());
+app.use(cors());
 
 // Route middlewares
 app.use("/api/users", auth);
